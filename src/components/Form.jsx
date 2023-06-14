@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import {motion} from 'framer-motion'
 import Tasks from './Tasks'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../utils/reducers';
 import { saveAs } from 'file-saver';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; 
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 
@@ -17,7 +18,10 @@ function Form() {
     const [description,setDescription] = useState('')
     // const [completed,setCompleted] = useState('')
     const [correctData,setCorrectData] = useState(false)
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const items = useSelector((state) => state.items);
+    
+
     
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -46,6 +50,17 @@ function Form() {
       setTitle('');
       setDescription('');
     };     
+
+    const handleExport = () => {
+      if(items.length > 0){
+        const exportedData = JSON.stringify(items);
+        const blob = new Blob([exportedData], { type: 'application/json' });
+        saveAs(blob, 'exported_items.json');
+        
+      }
+     toast.error('There is not tasks, to download! Add some!')
+    };
+    
       
 
     
@@ -86,7 +101,11 @@ function Form() {
         <option value="True">True</option>
     </select> */}
     <button type='submit'  className='rounded-full bg-slate-500 mt-2 px-2 mx-2'>Add task</button>
-    <button type='button' className='rounded-full bg-slate-500 my-2 px-2 mx-2'>Export all tasks</button>
+    <button 
+    type='button' 
+    onClick={handleExport} 
+    className='rounded-full bg-slate-500 my-2 px-2 mx-2'>
+      Export all tasks</button>
     </form>
     </motion.div>
     {/* <Tasks  data={data}/> */}
