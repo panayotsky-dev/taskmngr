@@ -27,7 +27,7 @@ function Tasks()  {
     exit={{opacity:0,}}
     transition={{duration:1}}
     className='text-xl font-semibold font-mono py-10 text-center'>Tasks</motion.h1>
-    {items ? (items.map((task)=>(
+    {items.length >0 ? (items.map((task)=>(
         <motion.div 
         initial={{opacity:0,x:-10,y:1000}}
     animate={{opacity:1,x:0,y:0,}}    
@@ -43,7 +43,7 @@ function Tasks()  {
               >Delete task</button>
         </motion.div>
         
-    ))) : (<p>No tasks</p>)}
+    ))) : (<p className='w-[300px] bg-slate-400 flex flex-col items-center font-mono rounded-md mt-2 mb-2 py-2  animate-pulse '>No tasks</p>)}
     </div>
   )
 }
