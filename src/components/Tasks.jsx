@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import {motion} from 'framer-motion'
 import { connect, useDispatch, useSelector } from 'react-redux'
 import { deleteItem } from '../utils/reducers'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -12,11 +14,13 @@ function Tasks()  {
 
   const handleDelete = (itemId) => {
     dispatch(deleteItem(itemId))
+    toast.error('Task was deleted!')
   }
   console.log(items)
   
   return (
     <div className=''>
+       <ToastContainer />
     <motion.h1 
     initial={{opacity:0,}}
     animate={{opacity:1,}}    
