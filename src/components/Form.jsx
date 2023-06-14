@@ -56,7 +56,7 @@ function Form() {
         const exportedData = JSON.stringify(items);
         const blob = new Blob([exportedData], { type: 'application/json' });
         saveAs(blob, 'exported_items.json');
-        
+        toast.success('JSON file was downloaded!')
       }
      toast.error('There is not tasks, to download! Add some!')
     };
